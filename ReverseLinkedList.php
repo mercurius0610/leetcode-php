@@ -39,5 +39,5 @@ foreach ($a as $i) {
     $head->next=new ListNode($i);
     $head=$head->next;
 }
-$i=new Solution2();
+$i=new Solution();
 print_r($i->reverseList($l->next));
