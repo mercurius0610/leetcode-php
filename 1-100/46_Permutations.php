@@ -42,8 +42,29 @@ class Solution {
         return [];
     }
 }
+class Solution2 {
+    private $res;
+    function permute($nums) {
+        $this->helper($nums, [], []);
+        return $this->res;
+    }
+
+    function helper($nums, $usedK, $tmp) {
+        if(count($tmp)==count($nums)) {
+            $this->res[]=$tmp;
+        }
+        for($i=0; $i<count($nums); $i++) {
+            if(isset($usedK[$i])) continue;
+            $tmp[]=$nums[$i];
+            $usedK[$i]=1;
+            $this->helper($nums, $usedK, $tmp);
+            array_pop($tmp);
+            unset($usedK[$i]);
+        }
+    }
+}
 $a=[1,2,3];
-$i=new Solution();
+$i=new Solution2();
 $res=$i->permute($a);
 print_r($res);
 

@@ -42,6 +42,33 @@ class Solution {
         return true;
     }
 }
+
+class Solution2 {
+    function isSymmetric($root) {
+        if($root==null) return true;
+        $queue=[$root->left];
+        $stack=[$root->right];
+        $queue_2=$stack_2=[];
+        while(!empty($queue)) {
+            $curr_l=array_pop($queue);
+            $curr_r=array_pop($stack);
+            if($curr_l->val !== $curr_r->val) return false;
+            if($curr_l->left!=null) $queue_2[]=$curr_l->left;
+            if($curr_r->right!=null) $stack_2[]=$curr_r->right;
+            if(count($stack_2)!=count($queue_2)) return false;
+
+            if($curr_l->right!=null) $queue_2[]=$curr_l->right;
+            if($curr_r->left!=null) $stack_2[]=$curr_r->left;
+            if(count($stack_2)!=count($queue_2)) return false;
+            if(empty($queue)) {
+                $queue=$queue_2;$stack=$stack_2;
+                $queue_2=[];$stack_2=[];
+            }
+        }
+        if(count($queue) != count($stack)) return false;
+        return true;
+    }
+}
 function build($a) {
     if(empty($a)) return null;
     $root = new TreeNode(reset($a));
@@ -72,7 +99,8 @@ function build($a) {
     return $root;
 }
 $a=[1,2,2,3,4,4,3];
-$i=new Solution();
+//$a=[2,3,3,4,5,5,4,null,null,8,9,null,null,9,8];
+$i=new Solution2();
 var_dump($i->isSymmetric(build($a)));
 
 
